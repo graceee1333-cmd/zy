@@ -1,43 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <style>
-        body {
-            background-color: #E6E6FA; /* Lavender Purple */
-            color: #4B0082; /* Deep Purple text */
-            text-align: center;
-            font-family: 'Arial', sans-serif;
-            padding: 50px;
+        body { margin: 0; background-color: #0d0d1a; color: white; font-family: sans-serif; overflow: hidden; }
+        canvas { display: block; }
+        .content { 
+            position: absolute; top: 10%; width: 100%; text-align: center; 
+            z-index: 10; pointer-events: none; 
         }
-        .container {
-            border: 5px solid #FF8C00; /* Konoha Orange */
-            border-radius: 20px;
-            padding: 30px;
-            background-color: #ffffff;
-            max-width: 600px;
-            margin: auto;
-        }
-        h1 { color: #FF4500; }
-        .ninja-button {
-            background-color: #4B0082;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 18px;
-        }
+        h1 { color: #d8bfd8; text-shadow: 0 0 10px #800080; margin-bottom: 5px; }
+        .naruto-chibi { width: 150px; margin-top: 10px; }
     </style>
 </head>
 <body>
+    <div class="content">
+        <h1>Happy Birthday, Ken!</h1>
+        <p>Believe it! 🍥</p>
+        <img src="https://i.pinimg.com/originals/e8/6e/c3/e86ec32a2469a4738555e09873a4e9a5.png" class="naruto-chibi" alt="Cute Naruto">
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-<div class="container">
-    <h1>Happy Birthday, Ken!</h1>
-    <p>Believe it! 🍥</p>
-    <p>Wishing you a year full of chakra and adventure.</p>
-    <button class="ninja-button" onclick="alert('Dattebayo! 🍜')">Click for Surprise</button>
-</div>
+        const geometry = new THREE.BufferGeometry();
+        const vertices = [];
+        for (let i = 0; i < 5000; i++) {
+            vertices.push((Math.random()-0.5)*2000, (Math.random()-0.5)*2000, (Math.random()-0.5)*2000);
+        }
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+        const material = new THREE.PointsMaterial({ color: 0x8884d8, size: 2 });
+        const glitter = new THREE.Points(geometry, material);
+        scene.add(glitter);
 
+        camera.position.z = 500;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            glitter.rotation.y += 0.002;
+            glitter.rotation.x += 0.001;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
 </body>
 </html>
