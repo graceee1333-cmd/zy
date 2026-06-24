@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Financial Calculator with Sakura Magic 🌸</title>
+    <title>Financial Ratio Analysis Tool</title> 
     <style>
         /* Sakura Theme */
         body { 
@@ -13,7 +13,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            overflow: hidden; /* Prevent vertical scrolling */
+            overflow: hidden;
         }
         .container { 
             max-width: 450px; 
@@ -23,7 +23,7 @@
             box-shadow: 0 10px 20px rgba(123, 31, 162, 0.2); 
             border: 3px solid #ce93d8;
             position: relative;
-            z-index: 10; /* Put calculator on top of animation */
+            z-index: 10;
         }
         h2 { text-align: center; color: #7b1fa2; }
         .input-group { margin-bottom: 12px; }
@@ -52,10 +52,9 @@
             width: 100%;
             height: 100vh;
             overflow: hidden;
-            pointer-events: none; /* Let clicks pass through to calculator */
-            z-index: 5; /* Petals below calculator */
+            pointer-events: none;
+            z-index: 5;
         }
-
         .petals {
             position: absolute;
             display: block;
@@ -63,18 +62,9 @@
             border-radius: 50%;
             animation: fall linear infinite;
         }
-
-        /* Animate different sizes and fall durations */
-        .petals:nth-child(2n) { background: #ffc0cb; }
-        .petals:nth-child(3n) { background: #ffb6c1; }
-
         @keyframes fall {
-            0% {
-                transform: translate(0, -100%) rotate(0deg);
-            }
-            100% {
-                transform: translate(100vw, 100vh) rotate(720deg);
-            }
+            0% { transform: translate(0, -100%) rotate(0deg); }
+            100% { transform: translate(100vw, 100vh) rotate(720deg); }
         }
     </style>
 </head>
@@ -84,11 +74,10 @@
     <div class="petals"></div>
     <div class="petals"></div>
     <div class="petals"></div>
-    <!-- Add more petals as needed for desired density -->
 </div>
 
 <div class="container">
-    <h2>Financial Magic 🌸</h2>
+    <h2>Financial Ratio Analysis</h2>
     
     <div class="input-group"><label>Current Assets ($)</label><input type="number" id="assets"></div>
     <div class="input-group"><label>Current Liabilities ($)</label><input type="number" id="liabilities"></div>
@@ -98,7 +87,7 @@
     <div class="input-group"><label>Sales ($)</label><input type="number" id="sales"></div>
     <div class="input-group"><label>Investment Cost ($)</label><input type="number" id="investmentCost"></div>
     
-    <button onclick="calculate()">Calculate Bloom! ✨</button>
+    <button onclick="calculate()">Calculate</button>
 
     <div id="results">
         <div class="result-item">Current Ratio: <span id="resCurrent"></span></div>
@@ -110,17 +99,29 @@
 
 <script>
     function calculate() {
-        // ... (same as before)
+        const assets = parseFloat(document.getElementById('assets').value) || 0;
+        const liabilities = parseFloat(document.getElementById('liabilities').value) || 0;
+        const debt = parseFloat(document.getElementById('debt').value) || 0;
+        const totalAssets = parseFloat(document.getElementById('totalAssets').value) || 0;
+        const netProfit = parseFloat(document.getElementById('netProfit').value) || 0;
+        const sales = parseFloat(document.getElementById('sales').value) || 0;
+        const invCost = parseFloat(document.getElementById('investmentCost').value) || 0;
+
+        document.getElementById('resCurrent').innerText = liabilities !== 0 ? (assets / liabilities).toFixed(2) : "N/A";
+        document.getElementById('resDebt').innerText = totalAssets !== 0 ? (debt / totalAssets).toFixed(2) : "N/A";
+        document.getElementById('resROI').innerText = invCost !== 0 ? ((netProfit / invCost) * 100).toFixed(2) : "0.00";
+        document.getElementById('resProfit').innerText = sales !== 0 ? ((netProfit / sales) * 100).toFixed(2) : "0.00";
+        
+        document.getElementById('results').style.display = 'block';
     }
 
-    // Dynamic Petal Generation (Optional, for better randomness)
     const container = document.querySelector('.cherry-blossom-container');
     for (let i = 0; i < 50; i++) {
         const petal = document.createElement('div');
         petal.classList.add('petals');
         petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDuration = Math.random() * 3 + 2 + 's'; // Varied durations
-        petal.style.width = Math.random() * 15 + 10 + 'px'; // Varied widths
+        petal.style.animationDuration = Math.random() * 3 + 2 + 's';
+        petal.style.width = Math.random() * 15 + 10 + 'px';
         petal.style.height = petal.style.width; 
         container.appendChild(petal);
     }
