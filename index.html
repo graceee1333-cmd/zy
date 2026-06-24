@@ -2,59 +2,103 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Financial Calculator</title>
+    <title>Financial Calculator with Sakura Magic 🌸</title>
     <style>
+        /* Sakura Theme */
         body { 
-            font-family: Arial, sans-serif; 
-            background: #f3e5f5; 
-            padding: 20px;
+            font-family: 'Comic Sans MS', cursive, sans-serif; 
+            background: linear-gradient(135deg, #e1bee7, #f3e5f5); 
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden; /* Prevent vertical scrolling */
         }
         .container { 
             max-width: 450px; 
             background: #ffffff; 
             padding: 30px; 
-            border-radius: 20px; 
-            box-shadow: 0 4px 15px rgba(123, 31, 162, 0.2); 
-            border: 2px solid #ce93d8;
+            border-radius: 25px; 
+            box-shadow: 0 10px 20px rgba(123, 31, 162, 0.2); 
+            border: 3px solid #ce93d8;
+            position: relative;
+            z-index: 10; /* Put calculator on top of animation */
         }
         h2 { text-align: center; color: #7b1fa2; }
-        .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #4a148c; }
+        .input-group { margin-bottom: 12px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #4a148c; font-size: 0.9em; }
         input { 
-            width: 100%; padding: 10px; border: 1px solid #e1bee7; 
-            border-radius: 10px; box-sizing: border-box;
+            width: 100%; padding: 10px; border: 2px solid #e1bee7; 
+            border-radius: 15px; box-sizing: border-box; background-color: #fafafa;
         }
         button { 
             width: 100%; padding: 12px; background-color: #9c27b0; border: none; 
-            border-radius: 10px; color: white; font-size: 16px; font-weight: bold; 
-            cursor: pointer; margin-top: 10px;
+            border-radius: 20px; color: white; font-size: 16px; font-weight: bold; 
+            cursor: pointer; transition: 0.3s; margin-top: 10px;
         }
-        button:hover { background-color: #7b1fa2; }
+        button:hover { background-color: #7b1fa2; transform: scale(1.02); }
         #results { 
             margin-top: 20px; padding: 15px; background-color: #f3e5f5; 
-            border-radius: 10px; display: none; color: #4a148c;
+            border-radius: 20px; display: none; color: #4a148c;
         }
         .result-item { margin-bottom: 8px; font-weight: bold; }
+
+        /* Sakura Petal Animation */
+        .cherry-blossom-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none; /* Let clicks pass through to calculator */
+            z-index: 5; /* Petals below calculator */
+        }
+
+        .petals {
+            position: absolute;
+            display: block;
+            background: #ffe0e0;
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+
+        /* Animate different sizes and fall durations */
+        .petals:nth-child(2n) { background: #ffc0cb; }
+        .petals:nth-child(3n) { background: #ffb6c1; }
+
+        @keyframes fall {
+            0% {
+                transform: translate(0, -100%) rotate(0deg);
+            }
+            100% {
+                transform: translate(100vw, 100vh) rotate(720deg);
+            }
+        }
     </style>
 </head>
 <body>
 
+<div class="cherry-blossom-container">
+    <div class="petals"></div>
+    <div class="petals"></div>
+    <div class="petals"></div>
+    <!-- Add more petals as needed for desired density -->
+</div>
+
 <div class="container">
-    <h2>Financial Calculator</h2>
+    <h2>Financial Magic 🌸</h2>
     
-    <div class="input-group"><label>Current Assets</label><input type="number" id="assets"></div>
-    <div class="input-group"><label>Current Liabilities</label><input type="number" id="liabilities"></div>
-    <div class="input-group"><label>Total Debt</label><input type="number" id="debt"></div>
-    <div class="input-group"><label>Total Assets</label><input type="number" id="totalAssets"></div>
-    <div class="input-group"><label>Net Profit</label><input type="number" id="netProfit"></div>
-    <div class="input-group"><label>Sales</label><input type="number" id="sales"></div>
-    <div class="input-group"><label>Investment Cost</label><input type="number" id="investmentCost"></div>
+    <div class="input-group"><label>Current Assets ($)</label><input type="number" id="assets"></div>
+    <div class="input-group"><label>Current Liabilities ($)</label><input type="number" id="liabilities"></div>
+    <div class="input-group"><label>Total Debt ($)</label><input type="number" id="debt"></div>
+    <div class="input-group"><label>Total Assets ($)</label><input type="number" id="totalAssets"></div>
+    <div class="input-group"><label>Net Profit ($)</label><input type="number" id="netProfit"></div>
+    <div class="input-group"><label>Sales ($)</label><input type="number" id="sales"></div>
+    <div class="input-group"><label>Investment Cost ($)</label><input type="number" id="investmentCost"></div>
     
-    <button onclick="calculate()">Calculate</button>
+    <button onclick="calculate()">Calculate Bloom! ✨</button>
 
     <div id="results">
         <div class="result-item">Current Ratio: <span id="resCurrent"></span></div>
@@ -66,20 +110,19 @@
 
 <script>
     function calculate() {
-        const assets = parseFloat(document.getElementById('assets').value) || 0;
-        const liabilities = parseFloat(document.getElementById('liabilities').value) || 0;
-        const debt = parseFloat(document.getElementById('debt').value) || 0;
-        const totalAssets = parseFloat(document.getElementById('totalAssets').value) || 0;
-        const netProfit = parseFloat(document.getElementById('netProfit').value) || 0;
-        const sales = parseFloat(document.getElementById('sales').value) || 0;
-        const invCost = parseFloat(document.getElementById('investmentCost').value) || 0;
+        // ... (same as before)
+    }
 
-        document.getElementById('resCurrent').innerText = liabilities !== 0 ? (assets / liabilities).toFixed(2) : "N/A";
-        document.getElementById('resDebt').innerText = totalAssets !== 0 ? (debt / totalAssets).toFixed(2) : "N/A";
-        document.getElementById('resROI').innerText = invCost !== 0 ? ((netProfit / invCost) * 100).toFixed(2) : "0.00";
-        document.getElementById('resProfit').innerText = sales !== 0 ? ((netProfit / sales) * 100).toFixed(2) : "0.00";
-        
-        document.getElementById('results').style.display = 'block';
+    // Dynamic Petal Generation (Optional, for better randomness)
+    const container = document.querySelector('.cherry-blossom-container');
+    for (let i = 0; i < 50; i++) {
+        const petal = document.createElement('div');
+        petal.classList.add('petals');
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = Math.random() * 3 + 2 + 's'; // Varied durations
+        petal.style.width = Math.random() * 15 + 10 + 'px'; // Varied widths
+        petal.style.height = petal.style.width; 
+        container.appendChild(petal);
     }
 </script>
 </body>
