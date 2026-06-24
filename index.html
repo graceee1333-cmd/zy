@@ -2,69 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sakura Financial Calculator 🌸</title>
+    <title>Financial Calculator</title>
     <style>
-        /* Sakura & Purple Theme */
         body { 
-            font-family: 'Segoe UI', cursive, sans-serif; 
-            background: linear-gradient(135deg, #e1bee7, #f3e5f5); 
-            min-height: 100vh;
+            font-family: Arial, sans-serif; 
+            background: #f3e5f5; 
+            padding: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            min-height: 100vh;
         }
         .container { 
             max-width: 450px; 
             background: #ffffff; 
             padding: 30px; 
-            border-radius: 40px; 
-            box-shadow: 0 10px 30px rgba(123, 31, 162, 0.2); 
-            border: 4px solid #ce93d8;
-            position: relative;
+            border-radius: 20px; 
+            box-shadow: 0 4px 15px rgba(123, 31, 162, 0.2); 
+            border: 2px solid #ce93d8;
         }
-        /* Sakura Decoration placeholder */
-        .container::before {
-            content: "🌸";
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            font-size: 40px;
-        }
-        h2 { text-align: center; color: #7b1fa2; font-family: 'Comic Sans MS', cursive; }
+        h2 { text-align: center; color: #7b1fa2; }
         .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #4a148c; font-size: 0.85em; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #4a148c; }
         input { 
-            width: 100%; padding: 12px; border: 2px solid #e1bee7; 
-            border-radius: 20px; box-sizing: border-box; background-color: #fafafa;
+            width: 100%; padding: 10px; border: 1px solid #e1bee7; 
+            border-radius: 10px; box-sizing: border-box;
         }
         button { 
             width: 100%; padding: 12px; background-color: #9c27b0; border: none; 
-            border-radius: 20px; color: white; font-size: 16px; font-weight: bold; 
-            cursor: pointer; transition: 0.3s; margin-top: 10px;
+            border-radius: 10px; color: white; font-size: 16px; font-weight: bold; 
+            cursor: pointer; margin-top: 10px;
         }
-        button:hover { background-color: #7b1fa2; transform: scale(1.02); }
+        button:hover { background-color: #7b1fa2; }
         #results { 
-            margin-top: 20px; padding: 20px; background-color: #f3e5f5; 
-            border-radius: 25px; display: none; color: #4a148c; border: 2px dashed #ce93d8;
+            margin-top: 20px; padding: 15px; background-color: #f3e5f5; 
+            border-radius: 10px; display: none; color: #4a148c;
         }
-        .result-item { margin-bottom: 10px; font-weight: bold; border-bottom: 1px dotted #ce93d8; padding-bottom: 5px; }
+        .result-item { margin-bottom: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Sakura Finance 🌸</h2>
+    <h2>Financial Calculator</h2>
     
-    <div class="input-group"><label>Current Assets ($)</label><input type="number" id="assets"></div>
-    <div class="input-group"><label>Current Liabilities ($)</label><input type="number" id="liabilities"></div>
-    <div class="input-group"><label>Total Debt ($)</label><input type="number" id="debt"></div>
-    <div class="input-group"><label>Total Assets ($)</label><input type="number" id="totalAssets"></div>
-    <div class="input-group"><label>Net Profit ($)</label><input type="number" id="netProfit"></div>
-    <div class="input-group"><label>Sales ($)</label><input type="number" id="sales"></div>
-    <div class="input-group"><label>Investment Cost ($)</label><input type="number" id="investmentCost"></div>
+    <div class="input-group"><label>Current Assets</label><input type="number" id="assets"></div>
+    <div class="input-group"><label>Current Liabilities</label><input type="number" id="liabilities"></div>
+    <div class="input-group"><label>Total Debt</label><input type="number" id="debt"></div>
+    <div class="input-group"><label>Total Assets</label><input type="number" id="totalAssets"></div>
+    <div class="input-group"><label>Net Profit</label><input type="number" id="netProfit"></div>
+    <div class="input-group"><label>Sales</label><input type="number" id="sales"></div>
+    <div class="input-group"><label>Investment Cost</label><input type="number" id="investmentCost"></div>
     
-    <button onclick="calculate()">Calculate Bloom! ✨</button>
+    <button onclick="calculate()">Calculate</button>
 
     <div id="results">
         <div class="result-item">Current Ratio: <span id="resCurrent"></span></div>
