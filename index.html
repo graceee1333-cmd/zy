@@ -1,60 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Ratio Calculator</title>
     <style>
-        body { margin: 0; background-color: #0d0d1a; color: white; font-family: sans-serif; overflow: hidden; }
-        /* Loading Screen */
-        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0d0d1a; display: flex; justify-content: center; align-items: center; z-index: 100; }
-        /* Main Content */
-        #content { display: none; text-align: center; }
-        .naruto-chibi { width: 150px; }
+        body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; }
+        .input-group { margin-bottom: 1rem; }
+        label { display: block; font-weight: bold; }
+        input { width: 100%; padding: 0.5rem; margin-top: 0.2rem; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #007bff; color: white; border: none; padding: 0.7rem 1rem; border-radius: 4px; cursor: pointer; }
+        #results { margin-top: 2rem; padding: 1rem; background: #f4f4f4; border-radius: 4px; }
     </style>
 </head>
 <body>
-    <div id="loader"><h1>Naglo-load... (2 mins)</h1></div>
+
+    <h2>Financial Ratio Calculator</h2>
     
-    <div id="content">
-        <h1>Happy Birthday, Ken!</h1>
-        <p>Believe it! 🍥</p>
-        <img src="https://i.pinimg.com/originals/e8/6e/c3/e86ec32a2469a4738555e09873a4e9a5.png" class="naruto-chibi" alt="Cute Naruto">
+    <div class="input-group">
+        <label>Current Assets ($)</label>
+        <input type="number" id="assets" placeholder="e.g. 50000">
+    </div>
+    <div class="input-group">
+        <label>Current Liabilities ($)</label>
+        <input type="number" id="liabilities" placeholder="e.g. 25000">
+    </div>
+    
+    <button onclick="calculate()">Calculate Current Ratio</button>
+
+    <div id="results">
+        <strong>Result:</strong> Please enter values and calculate.
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // 1. Loading timer (2 minutes = 120,000ms)
-        setTimeout(() => {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
-            initHeartAnimation();
-        }, 120000);
+        function calculate() {
+            const assets = parseFloat(document.getElementById('assets').value);
+            const liabilities = parseFloat(document.getElementById('liabilities').value);
+            const resultDiv = document.getElementById('results');
 
-        function initHeartAnimation() {
-            // Heart Animation Logic gaya sa 1000002869.mp4
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
-
-            // Glitter/Particles logic
-            const geometry = new THREE.BufferGeometry();
-            const vertices = [];
-            for (let i = 0; i < 5000; i++) {
-                vertices.push((Math.random()-0.5)*2000, (Math.random()-0.5)*2000, (Math.random()-0.5)*2000);
+            if (isNaN(assets) || isNaN(liabilities) || liabilities === 0) {
+                resultDiv.innerHTML = "<strong>Error:</strong> Please enter valid numbers. Liabilities cannot be zero.";
+                return;
             }
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-            const material = new THREE.PointsMaterial({ color: 0x8884d8, size: 2 });
-            const glitter = new THREE.Points(geometry, material);
-            scene.add(glitter);
 
-            camera.position.z = 500;
-
-            function animate() {
-                requestAnimationFrame(animate);
-                glitter.rotation.y += 0.002;
-                renderer.render(scene, camera);
-            }
-            animate();
+            const ratio = (assets / liabilities).toFixed(2);
+            resultDiv.innerHTML = `<strong>Current Ratio:</strong> ${ratio}<br>
+                                  <small>A ratio > 1 indicates the company has more assets than short-term liabilities.</small>`;
         }
     </script>
 </body>
