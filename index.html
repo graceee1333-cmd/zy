@@ -2,39 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Naruto Calculus Ninja Training</title>
     <style>
-        body { font-family: 'Arial', sans-serif; background: #2c3e50; color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        body { text-align: center; font-family: 'Arial', sans-serif; background: #2c3e50; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         
-        /* Disenyo ng Scroll */
-        #scroll-ui { 
-            display: none; 
-            background: #f4e4bc; /* Kulay ng lumang papel */
-            padding: 40px; 
-            width: 350px; 
-            text-align: center;
-            border-left: 20px solid #8b4513; /* Wood ends ng scroll */
-            border-right: 20px solid #8b4513;
-            box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
-            border-radius: 5px;
-            position: relative;
-        }
-
-        h2 { border-bottom: 2px solid #8b4513; padding-bottom: 10px; font-family: 'Georgia', serif; }
+        /* Shooting Game Styling */
+        #game-container { position: relative; width: 400px; height: 300px; border: 5px solid #bdc3c7; background: #34495e; }
+        .target { width: 100px; height: 100px; background: #e74c3c; margin: 100px auto; cursor: crosshair; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
         
-        button { padding: 10px 20px; cursor: pointer; background: #c0392b; color: white; border: none; font-weight: bold; border-radius: 5px; }
+        /* Japanese Scroll Styling */
+        #scroll-ui { display: none; background: #f4e4bc; color: #8e44ad; padding: 30px; width: 300px; border-left: 20px solid #8b4513; border-right: 20px solid #8b4513; border-radius: 5px; box-shadow: 10px 10px 20px rgba(0,0,0,0.5); }
+        
+        button { padding: 10px 20px; cursor: pointer; background: #c0392b; color: white; border: none; font-weight: bold; }
         input { padding: 10px; width: 60px; font-size: 16px; border: 2px solid #8b4513; }
     </style>
 </head>
 <body>
 
 <div id="game-container">
+    <!-- Shooting Phase -->
     <div id="target-area">
-        <button onclick="throwJutsu()">Hagis Rasen-Shuriken!</button>
+        <div class="target" onclick="throwShuriken()">🎯</div>
+        <p>Itira ang Rasen-Shuriken!</p>
     </div>
 
+    <!-- Math Phase -->
     <div id="scroll-ui">
-        <h2>📜 Ninjutsu Scroll</h2>
-        <p><strong>Problem:</strong><br> Ano ang derivative ng $f(x) = 5x^2$ sa $x = 1$?</p>
+        <h2>📜 Calculus Scroll</h2>
+        <p>Problem: Ano ang derivative ng $f(x) = 5x^2$ sa $x = 1$?</p>
         <input type="number" id="answer" placeholder="Sagot">
         <br><br>
         <button onclick="checkAnswer()">I-release ang Jutsu!</button>
@@ -42,18 +37,20 @@
 </div>
 
 <script>
-    function throwJutsu() {
+    function throwShuriken() {
+        alert("WHOOSH! Swak sa target!");
         document.getElementById('target-area').style.display = 'none';
         document.getElementById('scroll-ui').style.display = 'block';
     }
 
     function checkAnswer() {
         let ans = document.getElementById('answer').value;
+        // Ang sagot ay palaging 10
         if (parseInt(ans) === 10) {
-            alert("SUCCESS! Natutunan mo ang Calculus Jutsu!");
-            location.reload();
+            alert("SUCCESS! Dattebayo! Master mo na ang Calculus!");
+            location.reload(); 
         } else {
-            alert("Mali ang computation! Subukan ulit!");
+            alert("Mali ang computation mo, subukan ulit!");
         }
     }
 </script>
