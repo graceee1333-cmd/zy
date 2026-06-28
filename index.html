@@ -2,129 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Financial Ratio Analysis Tool</title> 
     <style>
-        /* Sakura Theme */
-        body { 
-            font-family: 'Comic Sans MS', cursive, sans-serif; 
-            background: linear-gradient(135deg, #e1bee7, #f3e5f5); 
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow: hidden;
-        }
-        .container { 
-            max-width: 450px; 
-            background: #ffffff; 
-            padding: 30px; 
-            border-radius: 25px; 
-            box-shadow: 0 10px 20px rgba(123, 31, 162, 0.2); 
-            border: 3px solid #ce93d8;
+        body { font-family: 'Arial', sans-serif; background: #2c3e50; color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        
+        /* Disenyo ng Scroll */
+        #scroll-ui { 
+            display: none; 
+            background: #f4e4bc; /* Kulay ng lumang papel */
+            padding: 40px; 
+            width: 350px; 
+            text-align: center;
+            border-left: 20px solid #8b4513; /* Wood ends ng scroll */
+            border-right: 20px solid #8b4513;
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+            border-radius: 5px;
             position: relative;
-            z-index: 10;
         }
-        h2 { text-align: center; color: #7b1fa2; }
-        .input-group { margin-bottom: 12px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #4a148c; font-size: 0.9em; }
-        input { 
-            width: 100%; padding: 10px; border: 2px solid #e1bee7; 
-            border-radius: 15px; box-sizing: border-box; background-color: #fafafa;
-        }
-        button { 
-            width: 100%; padding: 12px; background-color: #9c27b0; border: none; 
-            border-radius: 20px; color: white; font-size: 16px; font-weight: bold; 
-            cursor: pointer; transition: 0.3s; margin-top: 10px;
-        }
-        button:hover { background-color: #7b1fa2; transform: scale(1.02); }
-        #results { 
-            margin-top: 20px; padding: 15px; background-color: #f3e5f5; 
-            border-radius: 20px; display: none; color: #4a148c;
-        }
-        .result-item { margin-bottom: 8px; font-weight: bold; }
 
-        /* Sakura Petal Animation */
-        .cherry-blossom-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 5;
-        }
-        .petals {
-            position: absolute;
-            display: block;
-            background: #ffe0e0;
-            border-radius: 50%;
-            animation: fall linear infinite;
-        }
-        @keyframes fall {
-            0% { transform: translate(0, -100%) rotate(0deg); }
-            100% { transform: translate(100vw, 100vh) rotate(720deg); }
-        }
+        h2 { border-bottom: 2px solid #8b4513; padding-bottom: 10px; font-family: 'Georgia', serif; }
+        
+        button { padding: 10px 20px; cursor: pointer; background: #c0392b; color: white; border: none; font-weight: bold; border-radius: 5px; }
+        input { padding: 10px; width: 60px; font-size: 16px; border: 2px solid #8b4513; }
     </style>
 </head>
 <body>
 
-<div class="cherry-blossom-container">
-    <div class="petals"></div>
-    <div class="petals"></div>
-    <div class="petals"></div>
-</div>
+<div id="game-container">
+    <div id="target-area">
+        <button onclick="throwJutsu()">Hagis Rasen-Shuriken!</button>
+    </div>
 
-<div class="container">
-    <h2>Financial Ratio Analysis</h2>
-    
-    <div class="input-group"><label>Current Assets ($)</label><input type="number" id="assets"></div>
-    <div class="input-group"><label>Current Liabilities ($)</label><input type="number" id="liabilities"></div>
-    <div class="input-group"><label>Total Debt ($)</label><input type="number" id="debt"></div>
-    <div class="input-group"><label>Total Assets ($)</label><input type="number" id="totalAssets"></div>
-    <div class="input-group"><label>Net Profit ($)</label><input type="number" id="netProfit"></div>
-    <div class="input-group"><label>Sales ($)</label><input type="number" id="sales"></div>
-    <div class="input-group"><label>Investment Cost ($)</label><input type="number" id="investmentCost"></div>
-    
-    <button onclick="calculate()">Calculate</button>
-
-    <div id="results">
-        <div class="result-item">Current Ratio: <span id="resCurrent"></span></div>
-        <div class="result-item">Debt Ratio: <span id="resDebt"></span></div>
-        <div class="result-item">ROI: <span id="resROI"></span>%</div>
-        <div class="result-item">Profit Margin: <span id="resProfit"></span>%</div>
+    <div id="scroll-ui">
+        <h2>📜 Ninjutsu Scroll</h2>
+        <p><strong>Problem:</strong><br> Ano ang derivative ng $f(x) = 5x^2$ sa $x = 1$?</p>
+        <input type="number" id="answer" placeholder="Sagot">
+        <br><br>
+        <button onclick="checkAnswer()">I-release ang Jutsu!</button>
     </div>
 </div>
 
 <script>
-    function calculate() {
-        const assets = parseFloat(document.getElementById('assets').value) || 0;
-        const liabilities = parseFloat(document.getElementById('liabilities').value) || 0;
-        const debt = parseFloat(document.getElementById('debt').value) || 0;
-        const totalAssets = parseFloat(document.getElementById('totalAssets').value) || 0;
-        const netProfit = parseFloat(document.getElementById('netProfit').value) || 0;
-        const sales = parseFloat(document.getElementById('sales').value) || 0;
-        const invCost = parseFloat(document.getElementById('investmentCost').value) || 0;
-
-        document.getElementById('resCurrent').innerText = liabilities !== 0 ? (assets / liabilities).toFixed(2) : "N/A";
-        document.getElementById('resDebt').innerText = totalAssets !== 0 ? (debt / totalAssets).toFixed(2) : "N/A";
-        document.getElementById('resROI').innerText = invCost !== 0 ? ((netProfit / invCost) * 100).toFixed(2) : "0.00";
-        document.getElementById('resProfit').innerText = sales !== 0 ? ((netProfit / sales) * 100).toFixed(2) : "0.00";
-        
-        document.getElementById('results').style.display = 'block';
+    function throwJutsu() {
+        document.getElementById('target-area').style.display = 'none';
+        document.getElementById('scroll-ui').style.display = 'block';
     }
 
-    const container = document.querySelector('.cherry-blossom-container');
-    for (let i = 0; i < 50; i++) {
-        const petal = document.createElement('div');
-        petal.classList.add('petals');
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDuration = Math.random() * 3 + 2 + 's';
-        petal.style.width = Math.random() * 15 + 10 + 'px';
-        petal.style.height = petal.style.width; 
-        container.appendChild(petal);
+    function checkAnswer() {
+        let ans = document.getElementById('answer').value;
+        if (parseInt(ans) === 10) {
+            alert("SUCCESS! Natutunan mo ang Calculus Jutsu!");
+            location.reload();
+        } else {
+            alert("Mali ang computation! Subukan ulit!");
+        }
     }
 </script>
+
 </body>
 </html>
